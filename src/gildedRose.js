@@ -11,15 +11,15 @@ const backstageSecondIncreaseRange = 5;
 
 
 class Item {
-  
-  constructor(name, sellIn, quality){
-    
+
+  constructor(name, sellIn, quality) {
+
     this.name = name;
     this.sellIn = sellIn;
     this.quality = quality;
-    
+
   }
-  
+
 }
 
 function decreaseQuality(item) {
@@ -37,14 +37,16 @@ function increaseQuality(item) {
 
 function increaseBackstageQuality(item) {
 
-  if (item.sellIn <= backstageFirstIncreaseRange) {
-    increaseQuality(item);
+  if (item.name == specialItemBackstage) {
+
+    if (item.sellIn <= backstageFirstIncreaseRange) {
+      increaseQuality(item);
+    }
+
+    if (item.sellIn <= backstageSecondIncreaseRange) {
+      increaseQuality(item);
+    }
   }
-  
-  if (item.sellIn <= backstageSecondIncreaseRange) {
-    increaseQuality(item);
-  }
-  
 }
 
 function itemDecreaseWithTime(item) {
@@ -53,7 +55,7 @@ function itemDecreaseWithTime(item) {
 
 class Shop {
 
-  constructor(items=[]){
+  constructor(items = []) {
     this.items = items;
   }
 
@@ -61,7 +63,7 @@ class Shop {
 
   updateQuality() {
 
-    for (let item of this.items){
+    for (let item of this.items) {
 
       // Handle quality - before expirationDate is reached
       if (itemDecreaseWithTime(item)) {
@@ -75,12 +77,9 @@ class Shop {
           // quality increases with time
           item.quality++;
 
-          if (item.name == specialItemBackstage) {
+          // Cumulative increase within range
+          increaseBackstageQuality(item);
 
-            // Cumulative increase within range
-            increaseBackstageQuality(item);
-
-          }
         }
 
       }
