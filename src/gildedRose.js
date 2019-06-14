@@ -1,4 +1,5 @@
 
+const qualityFloor = 0;
 const qualityCeiling = 50;
 
 const specialItemBackstage = 'Backstage passes to a TAFKAL80ETC concert';
@@ -33,7 +34,7 @@ class Shop {
       // Handle quality - before expirationDate is reached
       if (this.items[i].name != specialItemBrie && this.items[i].name != specialItemBackstage) {
 
-        if (this.items[i].quality > 0) {
+        if (this.items[i].quality > qualityFloor) {
           if (this.items[i].name != specialItemSulfuras) {
 
             // Base case: quality decrease by time
@@ -80,7 +81,7 @@ class Shop {
 
           if (this.items[i].name != specialItemBackstage) {
 
-            if (this.items[i].quality > 0) {
+            if (this.items[i].quality > qualityFloor) {
 
               if (this.items[i].name != specialItemSulfuras) {
                 // name not 'Backstage', 'Sulfuras', AgedBrie' => base case
