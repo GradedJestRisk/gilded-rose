@@ -82,7 +82,7 @@ function updateQualityBeforeItemExpiration(item) {
   }
 }
 
-function handleQualityAfterItemExpiration(item) {
+function handleQualityIfItemExpired(item) {
   if (itemHasExpired(item)) {
     if (item.name != specialItemBrie) {
       if (item.name != specialItemBackstage) {
@@ -117,7 +117,7 @@ class Shop {
       decreaseItemSellIn(item);
 
       // Handle quality - when expirationDate is reached
-      handleQualityAfterItemExpiration(item);
+      handleQualityIfItemExpired(item);
 
     }
 
