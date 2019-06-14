@@ -73,11 +73,27 @@ function updateQualityBeforeItemExpiration(item) {
     decreaseQuality(item);
   }
   else { // name == specialItemBrie || 'Backstage'
-    if (item.quality < qualityCeiling) {
-      // quality increases with time
-      item.quality++;
+  if (item.quality < qualityCeiling) {
+    // quality increases with time
+    item.quality++;
       // Cumulative increase within range
       increaseBackstageQuality(item);
+    }
+  }
+}
+
+function handleQualityAfterItemExpiration(item) {
+  if (itemHasExpired(item)) {
+    if (item.name != specialItemBrie) {
+      if (item.name != specialItemBackstage) {
+        decreaseQuality(item);
+      }
+      else { // name == 'Backstage pass'
+        item.quality = 0;
+      }
+    }
+    else { // name == specialItemBrie
+      increaseQuality(item);
     }
   }
 }
@@ -101,24 +117,7 @@ class Shop {
       decreaseItemSellIn(item);
 
       // Handle quality - when expirationDate is reached
-      if (itemHasExpired(item)) {
-
-        if (item.name != specialItemBrie) {
-
-          if (item.name != specialItemBackstage) {
-
-            decreaseQuality(item);
-
-          } else { // name == 'Backstage pass'
-            item.quality = 0;
-          }
-
-        } else { // name == specialItemBrie
-
-          increaseQuality(item);
-
-        }
-      }
+      handleQualityAfterItemExpiration(item);
 
     }
 
