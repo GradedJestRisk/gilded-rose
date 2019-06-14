@@ -37,7 +37,7 @@ function increaseQuality(item) {
 
 function increaseBackstageQuality(item) {
 
-  if (item.name == specialItemBackstage) {
+  if (isItemBackstage(item)) {
 
     if (item.sellIn <= backstageFirstIncreaseRange) {
       increaseQuality(item);
@@ -47,6 +47,10 @@ function increaseBackstageQuality(item) {
       increaseQuality(item);
     }
   }
+}
+
+function isItemBackstage(item) {
+  return item.name == specialItemBackstage;
 }
 
 function itemDecreaseWithTime(item) {
