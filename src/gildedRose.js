@@ -23,9 +23,11 @@ class Item {
 }
 
 function decreaseQuality(item) {
-  if (item.quality > qualityFloor) {
-    // Base case: quality decrease by time
-    item.quality--;
+  if (item.name != specialItemSulfuras) {
+    if (item.quality > qualityFloor) {
+      // Base case: quality decrease by time
+      item.quality--;
+    }
   }
 }
 
@@ -36,13 +38,13 @@ function increaseQuality(item) {
 }
 
 function increaseBackstageQuality(item) {
-
+  
   if (isItemBackstage(item)) {
-
+    
     if (item.sellIn <= backstageFirstIncreaseRange) {
       increaseQuality(item);
     }
-
+    
     if (item.sellIn <= backstageSecondIncreaseRange) {
       increaseQuality(item);
     }
@@ -53,8 +55,14 @@ function isItemBackstage(item) {
   return item.name == specialItemBackstage;
 }
 
-function itemDecreaseWithTime(item) {
+function itemQualityDecreaseWithTime(item) {
   return item.name != specialItemBrie && item.name != specialItemBackstage && item.name != specialItemSulfuras;
+}
+
+function decreaseItemSellIn(item) {
+  if (item.name != specialItemSulfuras) {
+    item.sellIn--;
+  }
 }
 
 class Shop {
@@ -70,7 +78,7 @@ class Shop {
     for (let item of this.items) {
 
       // Handle quality - before expirationDate is reached
-      if (itemDecreaseWithTime(item)) {
+      if (itemQualityDecreaseWithTime(item)) {
 
         decreaseQuality(item);
 
@@ -89,9 +97,7 @@ class Shop {
       }
 
       // Handle sellIn date 
-      if (item.name != specialItemSulfuras) {
-        item.sellIn--;
-      }
+      decreaseItemSellIn(item);
 
       // Handle quality - when expirationDate is reached
       if (item.sellIn < 0) {
@@ -100,14 +106,7 @@ class Shop {
 
           if (item.name != specialItemBackstage) {
 
-            if (item.quality > qualityFloor) {
-
-              if (item.name != specialItemSulfuras) {
-                // name not 'Backstage', 'Sulfuras', AgedBrie' => base case
-                item.quality--;
-              }
-
-            }
+            decreaseQuality(item);
 
           } else { // name == 'Backstage pass'
             item.quality = 0;
