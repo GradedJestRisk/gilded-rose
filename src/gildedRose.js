@@ -35,6 +35,18 @@ function increaseQuality(item) {
   }
 }
 
+function increaseBackstageQuality(item) {
+
+  if (item.sellIn <= backstageFirstIncreaseRange) {
+    increaseQuality(item);
+  }
+
+  if (item.sellIn <= backstageSecondIncreaseRange) {
+    increaseQuality(item);
+  }
+
+}
+
 class Shop {
 
   constructor(items=[]){
@@ -62,13 +74,7 @@ class Shop {
           if (item.name == specialItemBackstage) {
 
             // Cumulative increase within range
-            if (item.sellIn <= backstageFirstIncreaseRange) {
-              increaseQuality(item);
-            }
-
-            if (item.sellIn <= backstageSecondIncreaseRange ) {
-              increaseQuality(item);
-            }
+            increaseBackstageQuality(item);
 
           }
         }
