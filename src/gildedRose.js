@@ -9,6 +9,7 @@ const specialItemBrie = 'Aged Brie';
 const backstageFirstIncreaseRange = 10;
 const backstageSecondIncreaseRange = 5;
 
+
 class Item {
 
   constructor(name, sellIn, quality){
@@ -34,14 +35,11 @@ class Shop {
     for (let item of this.items){
 
       // Handle quality - before expirationDate is reached
-      if (item.name != specialItemBrie && item.name != specialItemBackstage) {
+      if (item.name != specialItemBrie && item.name != specialItemBackstage && item.name != specialItemSulfuras) {
 
         if (item.quality > qualityFloor) {
-          if (item.name != specialItemSulfuras) {
-
-            // Base case: quality decrease by time
+               // Base case: quality decrease by time
             item.quality--;
-          }
         }
 
       } else { // name == specialItemBrie || 'Backstage'
