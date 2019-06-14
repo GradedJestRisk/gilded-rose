@@ -107,8 +107,6 @@ class Shop {
 
     }
 
-    return this.items;
-
   } // enf of updateQuality
 
 } // enf of Shop
