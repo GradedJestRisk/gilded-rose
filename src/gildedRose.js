@@ -1,3 +1,5 @@
+const qualityCeiling = 50;
+
 class Item {
 
   constructor(name, sellIn, quality){
@@ -36,7 +38,7 @@ class Shop {
 
       } else { // name == 'Aged Brie' || 'Backstage'
 
-        if (this.items[i].quality < 50) {
+        if (this.items[i].quality < qualityCeiling) {
 
           // quality increases with time
           this.items[i].quality = this.items[i].quality + 1;
@@ -45,13 +47,13 @@ class Shop {
 
             // Cumulative increase within range
             if (this.items[i].sellIn < 11) {
-              if (this.items[i].quality < 50) {
+              if (this.items[i].quality < qualityCeiling) {
                 this.items[i].quality = this.items[i].quality + 1;
               }
             }
 
             if (this.items[i].sellIn < 6) {
-              if (this.items[i].quality < 50) {
+              if (this.items[i].quality < qualityCeiling) {
                 this.items[i].quality = this.items[i].quality + 1;
               }
             }
@@ -88,7 +90,7 @@ class Shop {
 
         } else { // name == 'Aged Brie'
 
-          if (this.items[i].quality < 50) {
+          if (this.items[i].quality < qualityCeiling) {
             this.items[i].quality = this.items[i].quality + 1;
           }
 
