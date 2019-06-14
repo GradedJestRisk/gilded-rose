@@ -67,9 +67,7 @@ class Shop {
             }
 
             if (item.sellIn <= backstageSecondIncreaseRange ) {
-              if (item.quality < qualityCeiling) {
-                item.quality++;
-              }
+              increaseQuality(item);
             }
 
           }
@@ -104,9 +102,7 @@ class Shop {
 
         } else { // name == specialItemBrie
 
-          if (item.quality < qualityCeiling) {
-            item.quality++;
-          }
+          increaseQuality(item);
 
         }
       }
