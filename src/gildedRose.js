@@ -68,6 +68,20 @@ function decreaseItemSellIn(item) {
   }
 }
 
+function updateQualityBeforeItemExpiration(item) {
+  if (itemQualityDecreaseWithTime(item)) {
+    decreaseQuality(item);
+  }
+  else { // name == specialItemBrie || 'Backstage'
+    if (item.quality < qualityCeiling) {
+      // quality increases with time
+      item.quality++;
+      // Cumulative increase within range
+      increaseBackstageQuality(item);
+    }
+  }
+}
+
 class Shop {
 
   constructor(items = []) {
@@ -81,23 +95,7 @@ class Shop {
     for (let item of this.items) {
 
       // Handle quality - before expirationDate is reached
-      if (itemQualityDecreaseWithTime(item)) {
-
-        decreaseQuality(item);
-
-      } else { // name == specialItemBrie || 'Backstage'
-
-        if (item.quality < qualityCeiling) {
-
-          // quality increases with time
-          item.quality++;
-
-          // Cumulative increase within range
-          increaseBackstageQuality(item);
-
-        }
-
-      }
+      updateQualityBeforeItemExpiration(item);
 
       // Handle sellIn date 
       decreaseItemSellIn(item);
