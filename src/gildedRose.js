@@ -1,4 +1,7 @@
+
 const qualityCeiling = 50;
+
+const specialItemBackstage = 'Backstage passes to a TAFKAL80ETC concert';
 
 class Item {
 
@@ -26,7 +29,7 @@ class Shop {
 
 
       // Handle quality - before expirationDate is reached
-      if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
+      if (this.items[i].name != 'Aged Brie' && this.items[i].name != specialItemBackstage) {
 
         if (this.items[i].quality > 0) {
           if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
@@ -43,7 +46,7 @@ class Shop {
           // quality increases with time
           this.items[i].quality = this.items[i].quality + 1;
 
-          if (this.items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
+          if (this.items[i].name == specialItemBackstage) {
 
             // Cumulative increase within range
             if (this.items[i].sellIn < 11) {
@@ -73,7 +76,7 @@ class Shop {
 
         if (this.items[i].name != 'Aged Brie') {
 
-          if (this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
+          if (this.items[i].name != specialItemBackstage) {
 
             if (this.items[i].quality > 0) {
 
