@@ -93,6 +93,19 @@ describe("Gilded Rose", function() {
         expect(standardItemShortExpirationDate.quality).not.toBeLessThan(0);
     
       }); 
+
+      test("sellIN can be negative though", function() {
+
+        // Arrange //
+        // Done in beforeEach
+  
+        // Act //
+        ageShopItems(shopWithStandardItems, 10);
+    
+        // Assert //
+        expect(standardItemShortExpirationDate.sellIn).toBeLessThan(0);
+    
+      }); 
       
     });
    
@@ -160,7 +173,7 @@ describe("Gilded Rose", function() {
           return(new Item(itemParams.name, itemParams.sellIn, itemParams.quality));
         }
           
-        const sulfurasParams = { name : 'Sulfuras, Hand of Ragnaros' , quality : 80, sellIn: 0 };
+        const sulfurasParams = { name : 'Sulfuras, Hand of Ragnaros' , quality : 80, sellIn: 100 };
         sulfuras = makeItem(sulfurasParams) ;
   
         shop = new Shop([sulfuras]);
@@ -180,16 +193,17 @@ describe("Gilded Rose", function() {
         
       });
 
-      test('never has to be sold', () => {
+      test('never has to be sold, sellIn never decreases ', () => {
 
         // Arrange //
         // Done in beforeEach
+        const initialSellIn = sulfuras.sellIn;
   
         // Act //
-        ageShopItems(shop, 100);
+        ageShopItems(shop, 150);
     
         // Assert //
-        expect(sulfuras.sellIn).toBe(0);
+        expect(sulfuras.sellIn).toBe(initialSellIn);
        
         
       });
