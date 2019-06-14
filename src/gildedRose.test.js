@@ -43,12 +43,10 @@ describe("Gilded Rose", function() {
         // Done in beforeEach
   
         // Act //
-        // One day after..
         ageShopItems(shopWithStandardItems, 1);
     
         // Assert //
-  
-        // Quality
+
         expect(standardItem.quality).toEqual(19);
     
       }); 
@@ -59,9 +57,7 @@ describe("Gilded Rose", function() {
         // Done in beforeEach
   
         // Act //
-        // One day after..
-        ageShopItems(shopWithStandardItems, 1);
-        
+        ageShopItems(shopWithStandardItems, 1);        
     
         // Assert //
         expect(standardItem.sellIn).toEqual(10 - 1);
@@ -78,12 +74,9 @@ describe("Gilded Rose", function() {
         // Done in beforeEach
   
         // Act //
-        // One day after..
         ageShopItems(shopWithStandardItems, 2);
     
         // Assert //
-  
-        // Quality
         expect(standardItemShortExpirationDate.quality).toEqual(5 - 1 - 2);
     
       }); 
@@ -97,8 +90,6 @@ describe("Gilded Rose", function() {
         ageShopItems(shopWithStandardItems, 3);
     
         // Assert //
-  
-        // Quality
         expect(standardItemShortExpirationDate.quality).not.toBeLessThan(0);
     
       }); 
@@ -123,11 +114,9 @@ describe("Gilded Rose", function() {
           return(new Item(itemParams.name, itemParams.sellIn, itemParams.quality));
         }
   
-        // agedBrie
         const agedBrieParams = { name : 'Aged Brie' , quality : 40, sellIn: 10 };
         agedBrie = makeItem(agedBrieParams) ;
   
-        // Shop
         shop = new Shop([ agedBrie]);
   
       });
@@ -138,12 +127,9 @@ describe("Gilded Rose", function() {
         // Done in beforeEach
   
         // Act //
-        // One day after..
         ageShopItems(shop, 5);
     
         // Assert //
-  
-        // Quality
         expect(agedBrie.quality).toEqual(40 + 5 * 1);
         
       });
@@ -154,12 +140,9 @@ describe("Gilded Rose", function() {
         // Done in beforeEach
   
         // Act //
-        // One day after..
         ageShopItems(shop, 15);
     
         // Assert //
-  
-        // Quality
         expect(agedBrie.quality).not.toBeGreaterThan(50);
         
       });
@@ -190,26 +173,23 @@ describe("Gilded Rose", function() {
         // Done in beforeEach
   
         // Act //
-        // One day after..
         ageShopItems(shop, 100);
     
         // Assert //
-  
-        // Quality
-        expect(sulfuras.quality).toBe(80);
+         expect(sulfuras.quality).toBe(80);
         
       });
 
-      test.skip('never has to be sold', () => {
+      test('never has to be sold', () => {
 
         // Arrange //
         // Done in beforeEach
   
         // Act //
-        // ??
+        ageShopItems(shop, 100);
     
         // Assert //
-        // ?? 
+        expect(sulfuras.sellIn).toBe(0);
        
         
       });
@@ -295,12 +275,9 @@ describe("Gilded Rose", function() {
           // Done in beforeEach
     
           // Act //
-          // One day after..
           ageShopItems(shop, 20 - 0);
       
           // Assert //
-    
-          // Quality
           expect(backstagePass.quality).toBe( 5 + (10 * 1) + (5 * 2) + (5 * 3) );
           
         });
