@@ -2,57 +2,338 @@ var {Shop, Item} = require('./gildedRose');
 
 describe("Gilded Rose", function() {
 
+  function ageShopItems(shop, days){
 
+    if(days <0) fail();
+
+    for (let index = 1; index <= days; index ++) {
+     shop.updateQuality();      
+    }
+
+  }
 
   describe('Standard items', () => {
 
-    test("Quality decrease after one day", function() {
+    let standardItem, standardItemShortExpirationDate;
+    let shopWithStandardItems;
 
-      function newItem(itemParams){
+    beforeEach(()=>{
+
+      function makeItem(itemParams){
         return(new Item(itemParams.name, itemParams.sellIn, itemParams.quality));
       }
 
-      // Arrange
+      // Items
       const standardItemParams = { name : "crackers" , quality : 20, sellIn: 10 };
-      let standardItem = newItem(standardItemParams) ;
+      standardItem = makeItem(standardItemParams) ;
 
-      const standardItemShortExpirationDateParams = { name : "bread" , quality : 5, sellIn: 2 };
-      let standardItemShortExpirationDate = new newItem(standardItemShortExpirationDateParams) ;
+      const standardItemShortExpirationDateParams = { name : "bread" , quality : 5, sellIn: 1 };
+      standardItemShortExpirationDate = makeItem(standardItemShortExpirationDateParams) ;
 
-      let shopWithStandardItems = new Shop([ standardItem, standardItemShortExpirationDate ]);
+      // Shop
+      shopWithStandardItems = new Shop([ standardItem, standardItemShortExpirationDate ]);
+
+    });
+
+    describe('Before expiry date, each day', () => {
+
+      test("Quality decrease by one", function() {
+
+        // Arrange //
+        // Done in beforeEach
   
-      // Act
-      // One day after..
-      shopWithStandardItems.updateQuality();
+        // Act //
+        // One day after..
+        ageShopItems(shopWithStandardItems, 1);
+    
+        // Assert //
   
-      // Assert 
-
-      // Quality
-      expect(standardItem.quality).toEqual(19);
-
-      // SellIn
-      expect(standardItem.sellIn).toEqual(9);
+        // Quality
+        expect(standardItem.quality).toEqual(19);
+    
+      }); 
   
-    }); 
+      test("ExpirationDate decrease by one", function() {
+  
+        // Arrange //
+        // Done in beforeEach
+  
+        // Act //
+        // One day after..
+        ageShopItems(shopWithStandardItems, 1);
+        
+    
+        // Assert //
+        expect(standardItem.sellIn).toEqual(10 - 1);
+    
+      }); 
 
-    test.skip("Quality decrease after one day", function() {
+    });
 
-      // Arrange
-      // Add an item named 'foo' (nothing special)   
+    describe('After expiry date, each day', () => {
+
+      test("Quality decrease by two", function() {
+
+        // Arrange //
+        // Done in beforeEach
+  
+        // Act //
+        // One day after..
+        ageShopItems(shopWithStandardItems, 2);
+    
+        // Assert //
+  
+        // Quality
+        expect(standardItemShortExpirationDate.quality).toEqual(5 - 1 - 2);
+    
+      }); 
+  
+      test("But quality is never negative", function() {
+
+        // Arrange //
+        // Done in beforeEach
+  
+        // Act //
+        ageShopItems(shopWithStandardItems, 3);
+    
+        // Assert //
+  
+        // Quality
+        expect(standardItemShortExpirationDate.quality).not.toBeLessThan(0);
+    
+      }); 
       
-  
-      // Act
-      // One day after..
-      shopWithStandardItems.updateQuality();
-  
-      const standardItemAfterDayOne = shopWithStandardItems.items[0];
-  
-      // Assert 
-      // SellIn and Quality
-      expect(standardItemAfterDayOne.quality).toEqual(19);
-  
-    }); 
+    });
+   
 
+
+  });
+
+  describe('Special items', () => {
+
+    describe('Aged brie', () => {
+
+      
+      let agedBrie;
+      let shop;
+
+      beforeEach(()=>{
+
+        function makeItem(itemParams){
+          return(new Item(itemParams.name, itemParams.sellIn, itemParams.quality));
+        }
+  
+        // agedBrie
+        const agedBrieParams = { name : 'Aged Brie' , quality : 40, sellIn: 10 };
+        agedBrie = makeItem(agedBrieParams) ;
+  
+        // Shop
+        shop = new Shop([ agedBrie]);
+  
+      });
+
+      test('increase its quality with time ', () => {
+
+        // Arrange //
+        // Done in beforeEach
+  
+        // Act //
+        // One day after..
+        ageShopItems(shop, 5);
+    
+        // Assert //
+  
+        // Quality
+        expect(agedBrie.quality).toEqual(40 + 5 * 1);
+        
+      });
+
+      test('but never gets over 50', () => {
+
+        // Arrange //
+        // Done in beforeEach
+  
+        // Act //
+        // One day after..
+        ageShopItems(shop, 15);
+    
+        // Assert //
+  
+        // Quality
+        expect(agedBrie.quality).not.toBeGreaterThan(50);
+        
+      });
+      
+    });
+
+    describe('Sulfuras', () => {
+
+      let sulfuras;
+      let shop;
+
+      beforeEach(()=>{
+
+        function makeItem(itemParams){
+          return(new Item(itemParams.name, itemParams.sellIn, itemParams.quality));
+        }
+          
+        const sulfurasParams = { name : 'Sulfuras, Hand of Ragnaros' , quality : 80, sellIn: 0 };
+        sulfuras = makeItem(sulfurasParams) ;
+  
+        shop = new Shop([sulfuras]);
+  
+      });
+
+      test('never decreases its quality ', () => {
+
+        // Arrange //
+        // Done in beforeEach
+  
+        // Act //
+        // One day after..
+        ageShopItems(shop, 100);
+    
+        // Assert //
+  
+        // Quality
+        expect(sulfuras.quality).toBe(80);
+        
+      });
+
+      test.skip('never has to be sold', () => {
+
+        // Arrange //
+        // Done in beforeEach
+  
+        // Act //
+        // ??
+    
+        // Assert //
+        // ?? 
+       
+        
+      });
+      
+    });
+
+    describe('Backstage passes', () => {
+
+      let backstagePass;
+      let shop;
+
+      beforeEach(()=>{
+
+        function makeItem(itemParams){
+          return(new Item(itemParams.name, itemParams.sellIn, itemParams.quality));
+        }
+          
+        const backstagePassParams = { name : 'Backstage passes to a TAFKAL80ETC concert' , quality : 5, sellIn: 20 };
+        backstagePass = makeItem(backstagePassParams) ;
+  
+        shop = new Shop([backstagePass]);
+  
+      });
+
+
+      describe('increase its quality as concert approaches', () => {
+
+        test('by one if more than 10 days', () => {
+
+          // Arrange //
+          // Done in beforeEach
+    
+          // Act //
+          // One day after..
+          ageShopItems(shop, 2);
+      
+          // Assert //
+    
+          // Quality
+          expect(backstagePass.quality).toBe( 5 +  (2 * 1) );
+          
+        });
+
+        test('by 2 between 10 and 5 days', () => {
+
+          // Arrange //
+          // Done in beforeEach
+    
+          // Act //
+          // One day after..
+          ageShopItems(shop, 20 - 10 + 1);
+      
+          // Assert //
+    
+          // Quality
+          expect(backstagePass.quality).toBe( 5 + (10 * 1) + (1 * 2) );
+          
+        });
+
+        test('by 3 between 5 and 0 days', () => {
+
+          // Arrange //
+          // Done in beforeEach
+    
+          // Act //
+          // One day after..
+          ageShopItems(shop, (20 - 5) + 2);
+      
+          // Assert //
+    
+          // Quality
+          expect(backstagePass.quality).toBe( 5 + (10 * 1) + (5 * 2) + (2 * 3) );
+          
+        });
+        
+      });
+    
+      describe('drops to 0 after concert ', () => {
+
+        test('the actual day', () => {
+
+          // Arrange //
+          // Done in beforeEach
+    
+          // Act //
+          // One day after..
+          ageShopItems(shop, 20 - 0);
+      
+          // Assert //
+    
+          // Quality
+          expect(backstagePass.quality).toBe( 5 + (10 * 1) + (5 * 2) + (5 * 3) );
+          
+        });
+
+        test('actually drops to 0 the day after ', () => {
+
+          // Arrange //
+          // Done in beforeEach
+    
+          // Act //
+          ageShopItems(shop, 20 - 0 + 1);
+      
+          // Assert //
+          expect(backstagePass.quality).toBe(0);
+          
+        });
+
+        test('and forever ', () => {
+
+          // Arrange //
+          // Done in beforeEach
+    
+          // Act //
+          ageShopItems(shop, 20 - 0 + 50);
+      
+          // Assert //
+          expect(backstagePass.quality).toBe(0);
+          
+        });
+          
+      });
+
+    });
 
   });
 
