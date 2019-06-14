@@ -31,39 +31,38 @@ class Shop {
 
   updateQuality() {
 
-    for (var i = 0; i < this.items.length; i++) {
-
+    for (let item of this.items){
 
       // Handle quality - before expirationDate is reached
-      if (this.items[i].name != specialItemBrie && this.items[i].name != specialItemBackstage) {
+      if (item.name != specialItemBrie && item.name != specialItemBackstage) {
 
-        if (this.items[i].quality > qualityFloor) {
-          if (this.items[i].name != specialItemSulfuras) {
+        if (item.quality > qualityFloor) {
+          if (item.name != specialItemSulfuras) {
 
             // Base case: quality decrease by time
-            this.items[i].quality--;
+            item.quality--;
           }
         }
 
       } else { // name == specialItemBrie || 'Backstage'
 
-        if (this.items[i].quality < qualityCeiling) {
+        if (item.quality < qualityCeiling) {
 
           // quality increases with time
-          this.items[i].quality++;
+          item.quality++;
 
-          if (this.items[i].name == specialItemBackstage) {
+          if (item.name == specialItemBackstage) {
 
             // Cumulative increase within range
-            if (this.items[i].sellIn <= backstageFirstIncreaseRange) {
-              if (this.items[i].quality < qualityCeiling) {
-                this.items[i].quality++;
+            if (item.sellIn <= backstageFirstIncreaseRange) {
+              if (item.quality < qualityCeiling) {
+                item.quality++;
               }
             }
 
-            if (this.items[i].sellIn <= backstageSecondIncreaseRange ) {
-              if (this.items[i].quality < qualityCeiling) {
-                this.items[i].quality++;
+            if (item.sellIn <= backstageSecondIncreaseRange ) {
+              if (item.quality < qualityCeiling) {
+                item.quality++;
               }
             }
 
@@ -73,34 +72,34 @@ class Shop {
       }
 
       // Handle sellIn date 
-      if (this.items[i].name != specialItemSulfuras) {
-        this.items[i].sellIn--;
+      if (item.name != specialItemSulfuras) {
+        item.sellIn--;
       }
 
       // Handle quality - when expirationDate is reached
-      if (this.items[i].sellIn < 0) {
+      if (item.sellIn < 0) {
 
-        if (this.items[i].name != specialItemBrie) {
+        if (item.name != specialItemBrie) {
 
-          if (this.items[i].name != specialItemBackstage) {
+          if (item.name != specialItemBackstage) {
 
-            if (this.items[i].quality > qualityFloor) {
+            if (item.quality > qualityFloor) {
 
-              if (this.items[i].name != specialItemSulfuras) {
+              if (item.name != specialItemSulfuras) {
                 // name not 'Backstage', 'Sulfuras', AgedBrie' => base case
-                this.items[i].quality--;
+                item.quality--;
               }
 
             }
 
           } else { // name == 'Backstage pass'
-            this.items[i].quality = 0;
+            item.quality = 0;
           }
 
         } else { // name == specialItemBrie
 
-          if (this.items[i].quality < qualityCeiling) {
-            this.items[i].quality++;
+          if (item.quality < qualityCeiling) {
+            item.quality++;
           }
 
         }
