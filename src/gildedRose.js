@@ -2,6 +2,7 @@
 const qualityCeiling = 50;
 
 const specialItemBackstage = 'Backstage passes to a TAFKAL80ETC concert';
+const specialItemSulfuras = 'Sulfuras, Hand of Ragnaros';
 
 class Item {
 
@@ -32,7 +33,7 @@ class Shop {
       if (this.items[i].name != 'Aged Brie' && this.items[i].name != specialItemBackstage) {
 
         if (this.items[i].quality > 0) {
-          if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
+          if (this.items[i].name != specialItemSulfuras) {
 
             // Base case: quality decrease by time
             this.items[i].quality = this.items[i].quality - 1;
@@ -67,7 +68,7 @@ class Shop {
       }
 
       // Handle sellIn date 
-      if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
+      if (this.items[i].name != specialItemSulfuras) {
         this.items[i].sellIn = this.items[i].sellIn - 1;
       }
 
@@ -80,7 +81,7 @@ class Shop {
 
             if (this.items[i].quality > 0) {
 
-              if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
+              if (this.items[i].name != specialItemSulfuras) {
                 // name not 'Backstage', 'Sulfuras', AgedBrie' => base case
                 this.items[i].quality = this.items[i].quality - 1;
               }
