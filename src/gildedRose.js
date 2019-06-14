@@ -40,11 +40,15 @@ function increaseBackstageQuality(item) {
   if (item.sellIn <= backstageFirstIncreaseRange) {
     increaseQuality(item);
   }
-
+  
   if (item.sellIn <= backstageSecondIncreaseRange) {
     increaseQuality(item);
   }
+  
+}
 
+function itemDecreaseWithTime(item) {
+  return item.name != specialItemBrie && item.name != specialItemBackstage && item.name != specialItemSulfuras;
 }
 
 class Shop {
@@ -60,7 +64,7 @@ class Shop {
     for (let item of this.items){
 
       // Handle quality - before expirationDate is reached
-      if (item.name != specialItemBrie && item.name != specialItemBackstage && item.name != specialItemSulfuras) {
+      if (itemDecreaseWithTime(item)) {
 
         decreaseQuality(item);
 
