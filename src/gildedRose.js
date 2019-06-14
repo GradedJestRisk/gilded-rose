@@ -6,6 +6,9 @@ const specialItemBackstage = 'Backstage passes to a TAFKAL80ETC concert';
 const specialItemSulfuras = 'Sulfuras, Hand of Ragnaros';
 const specialItemBrie = 'Aged Brie';
 
+const backstageFirstIncreaseRange = 10;
+const backstageSecondIncreaseRange = 5;
+
 class Item {
 
   constructor(name, sellIn, quality){
@@ -52,13 +55,13 @@ class Shop {
           if (this.items[i].name == specialItemBackstage) {
 
             // Cumulative increase within range
-            if (this.items[i].sellIn < 11) {
+            if (this.items[i].sellIn <= backstageFirstIncreaseRange) {
               if (this.items[i].quality < qualityCeiling) {
                 this.items[i].quality++;
               }
             }
 
-            if (this.items[i].sellIn < 6) {
+            if (this.items[i].sellIn <= backstageSecondIncreaseRange ) {
               if (this.items[i].quality < qualityCeiling) {
                 this.items[i].quality++;
               }
