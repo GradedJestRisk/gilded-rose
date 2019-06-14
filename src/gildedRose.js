@@ -11,17 +11,24 @@ const backstageSecondIncreaseRange = 5;
 
 
 class Item {
-
+  
   constructor(name, sellIn, quality){
     
     this.name = name;
     this.sellIn = sellIn;
     this.quality = quality;
-
+    
   }
 
 }
-  
+
+function decreaseQuality(item) {
+  if (item.quality > qualityFloor) {
+    // Base case: quality decrease by time
+    item.quality--;
+  }
+}
+
 class Shop {
 
   constructor(items=[]){
@@ -37,10 +44,7 @@ class Shop {
       // Handle quality - before expirationDate is reached
       if (item.name != specialItemBrie && item.name != specialItemBackstage && item.name != specialItemSulfuras) {
 
-        if (item.quality > qualityFloor) {
-               // Base case: quality decrease by time
-            item.quality--;
-        }
+        decreaseQuality(item);
 
       } else { // name == specialItemBrie || 'Backstage'
 
