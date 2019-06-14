@@ -9,17 +9,20 @@ const specialItemBrie = 'Aged Brie';
 const backstageFirstIncreaseRange = 10;
 const backstageSecondIncreaseRange = 5;
 
+function itemHasExpired(item) {
+  return item.sellIn < 0;
+}
 
 class Item {
-
+  
   constructor(name, sellIn, quality) {
-
+    
     this.name = name;
     this.sellIn = sellIn;
     this.quality = quality;
-
+    
   }
-
+  
 }
 
 function decreaseQuality(item) {
@@ -100,7 +103,7 @@ class Shop {
       decreaseItemSellIn(item);
 
       // Handle quality - when expirationDate is reached
-      if (item.sellIn < 0) {
+      if (itemHasExpired(item)) {
 
         if (item.name != specialItemBrie) {
 
