@@ -19,13 +19,19 @@ class Item {
     this.quality = quality;
     
   }
-
+  
 }
 
 function decreaseQuality(item) {
   if (item.quality > qualityFloor) {
     // Base case: quality decrease by time
     item.quality--;
+  }
+}
+
+function increaseQuality(item) {
+  if (item.quality < qualityCeiling) {
+    item.quality++;
   }
 }
 
@@ -57,9 +63,7 @@ class Shop {
 
             // Cumulative increase within range
             if (item.sellIn <= backstageFirstIncreaseRange) {
-              if (item.quality < qualityCeiling) {
-                item.quality++;
-              }
+              increaseQuality(item);
             }
 
             if (item.sellIn <= backstageSecondIncreaseRange ) {
