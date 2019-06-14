@@ -3,6 +3,7 @@ const qualityCeiling = 50;
 
 const specialItemBackstage = 'Backstage passes to a TAFKAL80ETC concert';
 const specialItemSulfuras = 'Sulfuras, Hand of Ragnaros';
+const specialItemBrie = 'Aged Brie';
 
 class Item {
 
@@ -30,7 +31,7 @@ class Shop {
 
 
       // Handle quality - before expirationDate is reached
-      if (this.items[i].name != 'Aged Brie' && this.items[i].name != specialItemBackstage) {
+      if (this.items[i].name != specialItemBrie && this.items[i].name != specialItemBackstage) {
 
         if (this.items[i].quality > 0) {
           if (this.items[i].name != specialItemSulfuras) {
@@ -40,7 +41,7 @@ class Shop {
           }
         }
 
-      } else { // name == 'Aged Brie' || 'Backstage'
+      } else { // name == specialItemBrie || 'Backstage'
 
         if (this.items[i].quality < qualityCeiling) {
 
@@ -75,7 +76,7 @@ class Shop {
       // Handle quality - when expirationDate is reached
       if (this.items[i].sellIn < 0) {
 
-        if (this.items[i].name != 'Aged Brie') {
+        if (this.items[i].name != specialItemBrie) {
 
           if (this.items[i].name != specialItemBackstage) {
 
@@ -92,7 +93,7 @@ class Shop {
             this.items[i].quality = this.items[i].quality - this.items[i].quality;
           }
 
-        } else { // name == 'Aged Brie'
+        } else { // name == specialItemBrie
 
           if (this.items[i].quality < qualityCeiling) {
             this.items[i].quality = this.items[i].quality + 1;
