@@ -91,7 +91,7 @@ class Shop {
             }
 
           } else { // name == 'Backstage pass'
-            this.items[i].quality = this.items[i].quality - this.items[i].quality;
+            this.items[i].quality = 0;
           }
 
         } else { // name == specialItemBrie
