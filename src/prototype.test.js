@@ -147,7 +147,7 @@ describe("Gilded Rose (prototype)", function() {
         
       });
 
-      test.skip('but never gets over 50', () => {
+      test('but never gets over 50', () => {
 
         // Arrange //
         // Done in beforeEach

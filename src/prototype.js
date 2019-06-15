@@ -29,13 +29,14 @@ makeAgedBrie = function (agedBrieParams) {
 
     let agedBrie = new Item({ name: 'Aged Brie', sellIn: agedBrieParams.sellIn, quality: agedBrieParams.quality });
 
-    agedBrie.updateQuality = function () { this.quality++; };
+    
+    agedBrie.updateQuality = function () {
+        if (this.quality < 50) this.quality++;
+    };
 
-    return(agedBrie);
+    return (agedBrie);
 
 }
-
-
 
 Shop = function (items) {
     this.items = items;
