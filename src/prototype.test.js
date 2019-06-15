@@ -117,7 +117,7 @@ describe("Gilded Rose (prototype)", function() {
 
   });
 
-  describe.skip('Special items', () => {
+  describe('Special items', () => {
 
     describe('Aged brie', () => {
 
@@ -127,14 +127,14 @@ describe("Gilded Rose (prototype)", function() {
 
       beforeEach(()=>{
 
-        function makeItem(itemParams){
-          return(new Item(itemParams.name, itemParams.sellIn, itemParams.quality));
-        }
-  
         const agedBrieParams = { name : 'Aged Brie' , quality : 40, sellIn: 10 };
-        agedBrie = makeItem(agedBrieParams) ;
-  
-        shop = new Shop([ agedBrie]);
+        agedBrie = new Item(agedBrieParams) ;
+
+        // refactor: move to code file 
+        agedBrie.updateQuality = function () {this.quality++;};
+
+
+        shop = new Shop([ agedBrie ]);
   
       });
 
@@ -151,7 +151,7 @@ describe("Gilded Rose (prototype)", function() {
         
       });
 
-      test('but never gets over 50', () => {
+      test.skip('but never gets over 50', () => {
 
         // Arrange //
         // Done in beforeEach
@@ -166,7 +166,7 @@ describe("Gilded Rose (prototype)", function() {
       
     });
 
-    describe('Sulfuras', () => {
+    describe.skip('Sulfuras', () => {
 
       let sulfuras;
       let shop;
@@ -214,7 +214,7 @@ describe("Gilded Rose (prototype)", function() {
       
     });
 
-    describe('Backstage passes', () => {
+    describe.skip('Backstage passes', () => {
 
       let backstagePass;
       let shop;
