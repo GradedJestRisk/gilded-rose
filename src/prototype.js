@@ -23,7 +23,19 @@ Item.prototype.updateQuality = function () {
 Item.prototype.age = function () {
     this.updateQuality();
     this.updateSellIn();
+};
+
+makeAgedBrie = function (agedBrieParams) {
+
+    let agedBrie = new Item({ name: 'Aged Brie', sellIn: agedBrieParams.sellIn, quality: agedBrieParams.quality });
+
+    agedBrie.updateQuality = function () { this.quality++; };
+
+    return(agedBrie);
+
 }
+
+
 
 Shop = function (items) {
     this.items = items;
@@ -35,5 +47,6 @@ Shop.prototype.ageItems = function () {
 
 module.exports = {
     Item,
-    Shop
+    Shop,
+    makeAgedBrie
 }

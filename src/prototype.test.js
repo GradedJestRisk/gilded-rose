@@ -127,12 +127,8 @@ describe("Gilded Rose (prototype)", function() {
 
       beforeEach(()=>{
 
-        const agedBrieParams = { name : 'Aged Brie' , quality : 40, sellIn: 10 };
-        agedBrie = new Item(agedBrieParams) ;
-
-        // refactor: move to code file 
-        agedBrie.updateQuality = function () {this.quality++;};
-
+        const agedBrieParams = {quality : 40, sellIn: 10 };
+        agedBrie = makeAgedBrie(agedBrieParams);
 
         shop = new Shop([ agedBrie ]);
   
