@@ -19,8 +19,8 @@ Item.prototype.updateQuality = function() {
 };
 
 Item.prototype.age = function() {
-    this.updateSellIn();
     this.updateQuality();
+    this.updateSellIn();
 }
 
 Shop = function ( items ){

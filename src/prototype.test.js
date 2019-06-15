@@ -41,7 +41,7 @@ describe("Gilded Rose (prototype)", function() {
 
     describe('Before expiry date, each day', () => {
 
-      test.only("Quality decrease by one", function() {
+      test("Quality decrease by one", function() {
 
         // Arrange //
         // Done in beforeEach
@@ -85,7 +85,7 @@ describe("Gilded Rose (prototype)", function() {
     
       }); 
   
-      test("But quality is never negative", function() {
+      test.skip("But quality is never negative", function() {
 
         // Arrange //
         // Done in beforeEach
@@ -98,7 +98,7 @@ describe("Gilded Rose (prototype)", function() {
     
       }); 
 
-      test("sellIN can be negative though", function() {
+      test.skip("sellIN can be negative though", function() {
 
         // Arrange //
         // Done in beforeEach
@@ -117,7 +117,7 @@ describe("Gilded Rose (prototype)", function() {
 
   });
 
-  describe('Special items', () => {
+  describe.skip('Special items', () => {
 
     describe('Aged brie', () => {
 
