@@ -1,33 +1,36 @@
-Item = function(itemParams){
+Item = function (itemParams) {
     this.name = itemParams.name;
     this.sellIn = itemParams.sellIn;
     this.quality = itemParams.quality;
 }
 
-Item.prototype.updateSellIn = function() {
-  
-    if(this.sellIn > 0 ) this.sellIn--;
+Item.prototype.updateSellIn = function () {
+
+    if (this.sellIn > 0) this.sellIn--;
 };
 
-Item.prototype.updateQuality = function() {
+Item.prototype.updateQuality = function () {
+
     // refactor to IIFE
-    if(this.sellIn > 0 ){
-        this.quality = this.quality - 1;
-    } else {
-        this.quality = this.quality - 2;
+    if (this.quality > 0) {
+        if (this.sellIn > 0) {
+            this.quality = this.quality - 1;
+        } else {
+            this.quality = this.quality - 2;
+        }
     }
 };
 
-Item.prototype.age = function() {
+Item.prototype.age = function () {
     this.updateQuality();
     this.updateSellIn();
 }
 
-Shop = function ( items ){
+Shop = function (items) {
     this.items = items;
 };
 
-Shop.prototype.ageItems = function(){
+Shop.prototype.ageItems = function () {
     for (let item of this.items) item.age();
 };
 

@@ -85,13 +85,13 @@ describe("Gilded Rose (prototype)", function() {
     
       }); 
   
-      test.skip("But quality is never negative", function() {
+      test("But quality is never negative", function() {
 
         // Arrange //
         // Done in beforeEach
   
         // Act //
-        ageShopItems(shopWithStandardItems, 3);
+        ageShopItems(shopWithStandardItems, 10);
     
         // Assert //
         expect(standardItemShortExpirationDate.quality).not.toBeLessThan(0);
