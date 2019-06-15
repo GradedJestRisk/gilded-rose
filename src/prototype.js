@@ -28,10 +28,10 @@ Item.prototype.age = function () {
 makeAgedBrie = function (agedBrieParams) {
 
     let agedBrie = new Item({ name: 'Aged Brie', sellIn: agedBrieParams.sellIn, quality: agedBrieParams.quality });
-
+    const qualityCeiling = 50;
     
     agedBrie.updateQuality = function () {
-        if (this.quality < 50) this.quality++;
+        if (this.quality < qualityCeiling) this.quality++;
     };
 
     return (agedBrie);
