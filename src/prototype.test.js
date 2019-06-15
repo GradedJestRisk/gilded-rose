@@ -153,12 +153,27 @@ describe("Gilded Rose (prototype)", function() {
         // Done in beforeEach
   
         // Act //
-        ageShopItems(shop, 15);
+        ageShopItems(shop, 10);
     
         // Assert //
         expect(agedBrie.quality).not.toBeGreaterThan(50);
         
       });
+
+      test('should never get more than 60', () => {
+        
+           // Arrange //
+        // Done in beforeEach
+  
+        // Act //
+        ageShopItems(shop, 10);
+    
+        // Assert //
+        expect(agedBrie.quality).not.toBeGreaterThan(60);
+
+      });
+
+      
       
     });
 
