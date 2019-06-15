@@ -98,7 +98,7 @@ describe("Gilded Rose (prototype)", function() {
     
       }); 
 
-      test.skip("sellIN can be negative though", function() {
+      test("sellIN can be negative though", function() {
 
         // Arrange //
         // Done in beforeEach

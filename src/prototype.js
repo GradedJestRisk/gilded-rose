@@ -5,8 +5,7 @@ Item = function (itemParams) {
 }
 
 Item.prototype.updateSellIn = function () {
-
-    if (this.sellIn > 0) this.sellIn--;
+    this.sellIn--;
 };
 
 Item.prototype.updateQuality = function () {
