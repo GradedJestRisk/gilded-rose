@@ -1,8 +1,8 @@
-var {Shop, Item} = require('./prototype');
+const {Shop, Item, makeAgedBrie} = require('./prototype');
 
 describe("Gilded Rose (prototype)", function() {
 
-  function ageShopItems(shop, days){
+  const ageShopItems = function ageShopItems(shop, days){
 
     if(days <= 0 ) fail();
 
@@ -14,7 +14,8 @@ describe("Gilded Rose (prototype)", function() {
 
   describe('Standard items', () => {
 
-    let standardItem, standardItemShortExpirationDate;
+    let standardItem;
+    let standardItemShortExpirationDate;
     let shopWithStandardItems;
 
     beforeEach(()=>{
@@ -23,7 +24,7 @@ describe("Gilded Rose (prototype)", function() {
     //     return(new Item(itemParams.name, itemParams.sellIn, itemParams.quality));
     //   }
 
-      items = [];
+      const items = [];
 
       // Items
       const standardItemParams = { name : "crackers" , quality : 20, sellIn: 10 };
